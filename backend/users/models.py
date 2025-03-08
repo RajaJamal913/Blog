@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 
 class CustomUser(AbstractUser):
+   
     # Override groups with a unique related_name to prevent clashes
     groups = models.ManyToManyField(
         Group,

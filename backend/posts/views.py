@@ -1,3 +1,4 @@
+# posts/views.py
 from rest_framework import viewsets, permissions, filters
 from .models import Post
 from .serializers import PostSerializer
@@ -11,8 +12,11 @@ class PostViewSet(viewsets.ModelViewSet):
     filterset_fields = ['created_at']
 
     def get_queryset(self):
-        # Only return posts authored by the logged-in user
-        return Post.objects.filter(author=self.request.user)
+        user = self.request.user
+        # Admins see all posts; non-admins see only their posts.
+        if user.is_staff or user.is_superuser:
+            return Post.objects.all()
+        return Post.objects.filter(author=user)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
