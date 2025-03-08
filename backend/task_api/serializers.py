@@ -1,8 +1,9 @@
 from rest_framework import serializers
-from .models import Task
+from .models import BlogPost
 
-class TaskSerializer(serializers.ModelSerializer):
+class BlogPostSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
+    
     class Meta:
-        model = Task
-        fields = '__all__'
-        read_only_fields = ('id', 'created_at', 'updated_at', 'assigned_user')
+        model = BlogPost
+        fields = ['id', 'title', 'body', 'author', 'created_at', 'updated_at']

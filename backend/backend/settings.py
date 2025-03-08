@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'users',
-    'task_api',
+   # 'task_api',
+     'posts',
 ]
 # Custom User model
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -49,14 +50,19 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
 
 
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Allow frontend access
+     "http://127.0.0.1:3000",
 ]
 
 MIDDLEWARE = [
